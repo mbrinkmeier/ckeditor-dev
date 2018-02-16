@@ -29,7 +29,6 @@ CKEDITOR.plugins.add( 'abbozza', {
      * Add the hint widget
      */
     editor.widgets.add( 'hint' , {
-       button: 'Create an abbozza! Hint',
        draggable: false,
 
        // The template dpr the widget
@@ -194,13 +193,12 @@ CKEDITOR.plugins.add( 'abbozza', {
 
     /**
      * Adding the hint Button
-     *
+     */
     editor.ui.addButton( 'hint', {
-      label: 'Insert Hint',
+      button: 'Create an abbozza! Hint',
       command: 'hint',
       toolbar: 'abbozza'
     });
-    */
 
   }
 
