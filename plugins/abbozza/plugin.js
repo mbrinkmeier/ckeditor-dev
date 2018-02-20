@@ -21,7 +21,7 @@ CKEDITOR.plugins.add( 'abbozza', {
 
   requires: 'widget',
 
-  icons: 'newabzpage,hint',
+  icons: 'newabzpage,delabzpage,hint',
 
   init: function( editor ) {
 
@@ -31,7 +31,7 @@ CKEDITOR.plugins.add( 'abbozza', {
     editor.widgets.add( 'hint' , {
        draggable: false,
 
-       // The template dpr the widget
+       // The template for the widget
        template:
           '<abbozza-hint block="block_id" dx="0" dy="0" width="20em" height="3em">' +
           'Text ...' +
@@ -106,15 +106,16 @@ CKEDITOR.plugins.add( 'abbozza', {
      * The newpage command inserts anew page.
      */
     editor.addCommand( 'newabzpage', {
-      allowedContent: "abbozza-hint[block,dx,dy,width,height]",
-      exec: function( editor ) {
+      exec:
+         function( editor ) {
+           if ( !TaskWindow ) return;
+           TaskWindow.insertPage();
+         }
+      /*
+     function( editor ) {
          var doc = editor.document;
          var sel = editor.getSelection();
          var range = editor.createRange();
-
-         // var page = doc.createElement('page');
-         // doc.getBody().append(page);
-
 
          // Look for wrapping page
          var anc = sel.getCommonAncestor();
@@ -179,8 +180,16 @@ CKEDITOR.plugins.add( 'abbozza', {
            range.collapse(true);
            editor.insertHtml('&nbsp;','text',range);
          }
-      }
+      }*/
     });
+
+    editor.addCommand( 'delabzpage', {
+      exec:
+         function( editor ) {
+           if ( !TaskWindow ) return;
+           TaskWindow.deletePage();
+         }
+     });
 
     /**
      * Adding the newpage Button
@@ -188,6 +197,15 @@ CKEDITOR.plugins.add( 'abbozza', {
     editor.ui.addButton( 'newabzpage', {
       label: 'Insert abbozza! Page',
       command: 'newabzpage',
+      toolbar: 'abbozza'
+    });
+
+    /**
+     * Adding the newpage Button
+     */
+    editor.ui.addButton( 'delabzpage', {
+      label: 'Delete abbozza! Page',
+      command: 'delabzpage',
       toolbar: 'abbozza'
     });
 

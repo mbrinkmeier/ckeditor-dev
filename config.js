@@ -2,7 +2,7 @@
  * @license
  * abbozza!
  *
- * Copyright 2015 Michael Brinkmeier ( michael.brinkmeier@uni-osnabrueck.de )
+ * Copyright 2018 Michael Brinkmeier ( michael.brinkmeier@uni-osnabrueck.de )
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -93,7 +93,9 @@ CKEDITOR.editorConfig = function( config ) {
 	  config.resize_enabled = false;
 	  config.removePlugins = "resize";
 		config.toolbarCanCollapse= true;
-		config.toolbarStartupExpanded = false;
+		config.toolbarStartupExpanded = true;
+		config.width = "100%";
+		config.height = "100%";
 
 	  config.toolbarGroups = [
 			{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
