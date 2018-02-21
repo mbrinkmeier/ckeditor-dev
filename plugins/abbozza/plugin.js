@@ -213,7 +213,7 @@ CKEDITOR.plugins.add( 'abbozza', {
      * Adding the hint Button
      */
     editor.ui.addButton( 'hint', {
-      button: 'Create an abbozza! Hint',
+      label: 'Create an abbozza! Hint',
       command: 'hint',
       toolbar: 'abbozza'
     });
