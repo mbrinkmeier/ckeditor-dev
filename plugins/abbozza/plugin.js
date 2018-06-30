@@ -21,7 +21,7 @@ CKEDITOR.plugins.add( 'abbozza', {
 
   requires: 'widget',
 
-  icons: 'newabzpage,delabzpage,hint',
+  icons: 'newabzpage,delabzpage,hint,abznav',
 
   init: function( editor ) {
 
@@ -100,8 +100,10 @@ CKEDITOR.plugins.add( 'abbozza', {
     /**
      * The hint command
      */
-    // editor.addCommand( 'hint', new CKEDITOR.dialogCommand( 'hintDialog' ) );
-    CKEDITOR.dialog.add ('hint', this.path + 'dialogs/hint.js');
+    editor.addCommand( 'abznav', new CKEDITOR.dialogCommand( 'abznav' ) );
+    CKEDITOR.dialog.add('hint', this.path + 'dialogs/hint.js');
+    CKEDITOR.dialog.add('abznav',this.path + 'dialogs/abznav.js');
+    
     /**
      * The newpage command inserts anew page.
      */
@@ -111,76 +113,6 @@ CKEDITOR.plugins.add( 'abbozza', {
            if ( !TaskWindow ) return;
            TaskWindow.insertPage();
          }
-      /*
-     function( editor ) {
-         var doc = editor.document;
-         var sel = editor.getSelection();
-         var range = editor.createRange();
-
-         // Look for wrapping page
-         var anc = sel.getCommonAncestor();
-         if ( anc == null ) {
-           // Insert page at the end
-           var page = doc.createElement('page');
-           doc.getBody().append(page);
-           range.setStartAt(page,CKEDITOR.POSITION_AFTER_START);
-           range.collapse(true);
-           editor.insertHtml('&nbsp;','text',range);
-           return;
-         }
-
-         var parent = anc.getAscendant('page',true);
-         if ( parent == null ) {
-           // If there is no wrapping page ...
-           // .. wrap the selection in a new page
-           parent = sel.getCommonAncestor();
-           if ( parent == null ) {
-             // If no common ancestor was found, append a new page
-             var page = doc.createElement('page');
-             doc.getBody().append(page);
-             range.setStartAt(page,CKEDITOR.POSITION_AFTER_START);
-             range.collapse(true);
-             editor.insertHtml('&nbsp;','text',range);
-           } else {
-              if ( (parent.type == CKEDITOR.NODE_ELEMENT) && (parent.getName() == 'body') ) {
-                var page = doc.createElement('page');
-                doc.getBody().append(page);
-                range.setStartAt(page,CKEDITOR.POSITION_AFTER_START);
-                range.collapse(true);
-                editor.insertHtml('&nbsp;','text',range);
-                return;
-              }
-              // Climb up
-               while ( (parent.getParent() != null) &&  (parent.getParent().getName()) != 'body' ) {
-                  parent = parent.getParent();
-               }
-               // Now grandparent is the body
-               // Check if parent contains pages
-               var subpages = parent.getElementsByTag('page');
-               if ( subpages.count() > 0 ) {
-                 // Insert before parent
-                 var page = doc.createElement('page');
-                 page.insertBefore(parent);
-                 range.setStartAt(page,CKEDITOR.POSITION_AFTER_START);
-                 range.collapse(true);
-                 editor.insertHtml('&nbsp;','text',range);
-               } else {
-                 // Wrap parent
-                 var page = doc.createElement('page');
-                 page.insertBefore(parent);
-                 parent.appendTo(page);
-              }
-           }
-         } else {
-           // If there is a wrapping page ...
-           // ... insert a new page after
-           var page = doc.createElement('page');
-           page.insertAfter(parent);
-           range.setStartAt(page,CKEDITOR.POSITION_AFTER_START);
-           range.collapse(true);
-           editor.insertHtml('&nbsp;','text',range);
-         }
-      }*/
     });
 
     editor.addCommand( 'delabzpage', {
@@ -190,7 +122,7 @@ CKEDITOR.plugins.add( 'abbozza', {
            TaskWindow.deletePage();
          }
      });
-
+     
     /**
      * Adding the newpage Button
      */
@@ -218,6 +150,14 @@ CKEDITOR.plugins.add( 'abbozza', {
       toolbar: 'abbozza'
     });
 
+    /**
+     * Adding the nav Button
+     */
+    editor.ui.addButton( 'abznav', {
+      label: 'Set abbozza! navigation',
+      command: 'abznav',
+      toolbar: 'abbozza'
+    });
   }
 
 });

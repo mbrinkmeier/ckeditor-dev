@@ -28,3 +28,4 @@ bender-*.log
 
 !.github/*
 .DS_Store
+/nbproject/private/
